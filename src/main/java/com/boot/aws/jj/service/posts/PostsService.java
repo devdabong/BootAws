@@ -2,12 +2,16 @@ package com.boot.aws.jj.service.posts;
 
 import com.boot.aws.jj.domain.posts.Posts;
 import com.boot.aws.jj.domain.posts.PostsRepository;
+import com.boot.aws.jj.web.dto.PostsListResponseDto;
 import com.boot.aws.jj.web.dto.PostsResponseDto;
 import com.boot.aws.jj.web.dto.PostsSaveRequestDto;
 import com.boot.aws.jj.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /***
  * Spring 에서는 Controller와 Service에서 @Autowired, setter, 생성자로 Bean을 주입받는다.
@@ -61,5 +65,18 @@ public class PostsService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
 
         return new PostsResponseDto(entity);
+    }
+
+    /**
+     * 게시글 리스트 get
+     * @return
+     *
+     * readOnly = true : 트랜잭션 범위는 유지하되 조회 기능만 남겨둠. => 조회 속도가 개선됨.
+     */
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc() {
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)     /* .map(posts -> new PostsListResponseDto(posts)와 같음. */
+                .collect(Collectors.toList());
     }
 }
