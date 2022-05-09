@@ -15,10 +15,10 @@ import javax.servlet.http.HttpSession;
  * HandlerMethodArgumentResolver 인터페이스를 구현한 클래스.
  * @LoginUser 어노테이션을 사용하기 위한 환경 구성 2.
  *
- * HandlerMethodArgumentResolver : 조건에 맞는 메소드가 있다면 HandlerMethodArgumentResolver의 구현체가 지정한 값으로 해당 메소드의 파라미터로 넘길 수 있다.
+ * HandlerMethodArgumentResolver : 컨트롤러에서 파라미터를 바인딩 해주는 역할.
  *
- * supportsParameter() : 컨트롤러 메서드의 특정 파라미터를 지원하는지 판단함.
- * resolveArgument() : 파라미터에 전달할 객체를 생성함.
+ * supportsParameter() : 컨트롤러 메서드의 특정 파라미터를 지원하는지 판단함. 바인딩할 클래스를 지정해주는 메서드
+ * resolveArgument() : 파라미터에 전달할 객체를 생성함. 바인딩할 객체를 조작할 수 있는 메서드
  */
 @RequiredArgsConstructor
 @Component
