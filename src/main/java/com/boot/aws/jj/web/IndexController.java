@@ -1,5 +1,6 @@
 package com.boot.aws.jj.web;
 
+import com.boot.aws.jj.config.auth.dto.SessionUser;
 import com.boot.aws.jj.service.posts.PostsService;
 import com.boot.aws.jj.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 머스테치 스타터 덕분에 컨트롤러에서 문자열을 반환할 때 앞의 경로와 파일 확장자는 자동으로 지정된다.
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class IndexController {
 
     private final PostsService postsService;
+    private final HttpSession httpSession;
 
     /**
      * src/main/resources/templates/index.mustache로 전환되어 View Resolver가 처리하게 됨.
@@ -29,6 +33,17 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("posts", postsService.findAllDesc());
+
+        //CustomOAuth2UserService에서 로그인 성공 시 세션에 SessionUser를 저장하도록 이전에 구성했었다.
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        if (user != null) {
+            System.out.println(">>>>>>> " + user.getName());
+            System.out.println(">>>>>>> " + user.getEmail());
+            model.addAttribute("name", user.getName());
+            model.addAttribute("email", user.getEmail());
+        }
+
         return "index";
     }
 

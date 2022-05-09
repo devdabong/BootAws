@@ -7,6 +7,13 @@
         <div class="row">
             <div class="col-md-6">
                 <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+                {{#name}}   <!--if 의미-->
+                    Logged in as: <span id="user">{{name}} / {{email}}</span>
+                    <a href="/logout" class="btn btn-info active" role="button">Logout</a> <!--/logout : 스프링 시큐리티에서 기본적으로 제공하는 로그아웃 URL-->
+                {{/name}}
+                {{^name}}   <!--if not 의미-->
+                    <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a> <!--/oauth2/authorization/google : 스프링 시큐리티에서 기본적으로 제공하는 로그인 URL-->
+                {{/name}}
             </div>
         </div>
         <br>
