@@ -33,6 +33,8 @@ var main = {
             alert('글이 등록되었습니다.');
             window.location.href = '/';
         }).fail(function (error) {
+            if (error.status == '403') { console.log('this is 403 error!'); }
+            alert(error.status);
             alert(JSON.stringify(error));
         });
     },
