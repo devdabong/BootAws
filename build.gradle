@@ -41,6 +41,8 @@ dependencies {
 
     // 인메모리 관계형 H2 DB
     implementation 'com.h2database:h2'
+    // Maria DB Driver
+    implementation 'org.mariadb.jdbc:mariadb-java-client'
 
     // 롬복 사용은 Settings > Build > Compiler > Annotation Processors > Enable annotation processing check
     compileOnly 'org.projectlombok:lombok'
