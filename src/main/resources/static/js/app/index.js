@@ -33,9 +33,12 @@ var main = {
             alert('글이 등록되었습니다.');
             window.location.href = '/';
         }).fail(function (error) {
-            if (error.status == '403') { console.log('this is 403 error!'); }
-            alert(error.status);
-            alert(JSON.stringify(error));
+            if (error.status == '403') {
+                console.log('this is 403 error!');
+                alert('게시글 등록 권한이 없습니다. USER 권한으로 업데이트 해주세요.')
+            } else {
+                alert(JSON.stringify(error));
+            }
         });
     },
     update: function () {
